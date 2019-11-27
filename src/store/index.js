@@ -19,6 +19,23 @@ export default new Vuex.Store({
       }
     },
     demographicsSelector: '',
+    images: [
+      {
+        id: 'img01',
+        url: 'https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png',
+        distance: 2.6
+      },
+      {
+        id: 'img02',
+        url: 'https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png',
+        distance: 2.3
+      },
+      {
+        id: 'img03',
+        url: 'https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png',
+        distance: 1.8
+      }
+    ],
     statistics: {
       '18-24': {
         count: 4,

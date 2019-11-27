@@ -26,8 +26,18 @@ export default {
       type: String,
       default: 'https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png'
     },
-    overallDistribution: Array,
-    selectedDistribution: Array
+    overallDistribution: {
+      type: Array,
+      default: function () {
+        return [0, 4, 3, 1, 0]
+      }
+    },
+    selectedDistribution: {
+      type: Array,
+      default: function () {
+        return [0, 3, 0, 0, 0]
+      }
+    }
   },
   data: function () {
     return {
