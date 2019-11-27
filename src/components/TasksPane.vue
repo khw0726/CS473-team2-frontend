@@ -5,15 +5,32 @@
         {{label}}
       </v-chip>
     </div>
+    <v-row>
+      <v-col md="2">
+        <v-btn v-for="image in images" :key="image.id">
+          {{image.id}}
+        </v-btn>
+      </v-col>
+      <v-col md="10">
+        <task-detail-pane></task-detail-pane>
+      </v-col>
+    </v-row>
 
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+import TaskDetailPane from '@/components/TaskDetailPane.vue'
 export default {
   name: 'TasksPane',
+  components: {
+    TaskDetailPane
+  },
   computed: {
+    ...mapState({
+      images: 'images'
+    }),
     ...mapGetters({
       demographics: 'demographics'
     })
