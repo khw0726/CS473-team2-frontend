@@ -45,15 +45,15 @@ export default new Vuex.Store({
       },
       '25-34': {
         count: 8,
-        min: 0.8,
-        max: 2.1,
-        avg: 1.6
+        min: 0.2,
+        max: 3.7,
+        avg: 2.8
       },
       '35-44': {
         count: 12,
-        min: 0.8,
-        max: 2.1,
-        avg: 1.6
+        min: 1.4,
+        max: 2.2,
+        avg: 1.7
       }
     }
   },

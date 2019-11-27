@@ -7,12 +7,14 @@
     </div>
     <v-row>
       <v-col md="2">
-        <v-btn v-for="image in images" :key="image.id">
+        <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image)">
           {{image.id}}
         </v-btn>
       </v-col>
       <v-col md="10">
-        <task-detail-pane></task-detail-pane>
+        <task-detail-pane
+          :imageURL="selectedImage.url || ''"
+          :imageID="selectedImage.id || ''"></task-detail-pane>
       </v-col>
     </v-row>
 
@@ -35,8 +37,14 @@ export default {
       demographics: 'demographics'
     })
   },
+  methods: {
+    onSelectImage: function (image) {
+      this.selectedImage = image
+    }
+  },
   data: function () {
     return {
+      selectedImage: {}
     }
   }
 }

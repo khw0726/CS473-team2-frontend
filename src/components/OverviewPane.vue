@@ -31,6 +31,11 @@
           </tbody>
         </template>
       </v-simple-table>
+      <div>
+        <distance-comparison-chart
+          :data="chartData">
+        </distance-comparison-chart>
+      </div>
       <!-- <template v-for="(value, label) in statistics">
         <div :key="label">
           {{label}}
@@ -49,8 +54,12 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import DistanceComparisonChart from '@/components/charts/DistanceComparisonChart'
 export default {
   name: 'OverviewPane',
+  components: {
+    DistanceComparisonChart
+  },
   computed: {
     ...mapState({
       categories: 'categories',
@@ -58,7 +67,44 @@ export default {
     }),
     ...mapGetters({
       demographics: 'demographics'
-    })
+    }),
+    chartData: function () {
+      const min = []
+      const max = []
+      const between = []
+      const labels = Object.keys(this.statistics)
+      console.log('a')
+      labels.forEach((label) => {
+        min.push(this.statistics[label].min)
+        between.push(this.statistics[label].max - this.statistics[label].min)
+        max.push(4 - this.statistics[label].max)
+      })
+      console.log(min)
+      console.log(between)
+      console.log(max)
+
+      console.log('b')
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: 'min',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: min
+          },
+          {
+            label: 'between',
+            backgroundColor: '#f87979',
+            data: between
+          },
+          {
+            label: 'max',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: max
+          }
+        ]
+      }
+    }
   },
   data: function () {
     return {
