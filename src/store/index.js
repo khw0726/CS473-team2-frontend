@@ -5,20 +5,44 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    statistics: {
+    categories: {
       age: {
-        '18-24': 0,
+        '18-24': 1,
         '25-34': 3,
         '35-44': 2,
         '45-54': 2,
         '55-64': 1
+      },
+      gender: {
+        'Male': 1,
+        'Female': 33
       }
     },
-    demographicsSelector: ''
+    demographicsSelector: '',
+    statistics: {
+      '18-24': {
+        count: 4,
+        min: 0.8,
+        max: 2.1,
+        avg: 1.6
+      },
+      '25-34': {
+        count: 8,
+        min: 0.8,
+        max: 2.1,
+        avg: 1.6
+      },
+      '35-44': {
+        count: 12,
+        min: 0.8,
+        max: 2.1,
+        avg: 1.6
+      }
+    }
   },
   getters: {
     demographics: (state, getters) => {
-      return state.statistics[state.demographicsSelector]
+      return state.categories[state.demographicsSelector]
     }
   },
   mutations: {

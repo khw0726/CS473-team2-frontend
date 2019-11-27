@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col md="3">
+      <v-col md="4">
         <OverviewPane></OverviewPane>
       </v-col>
-      <v-col md="9">
+      <v-col md="8">
         <TasksPane></TasksPane>
       </v-col>
     </v-row>
