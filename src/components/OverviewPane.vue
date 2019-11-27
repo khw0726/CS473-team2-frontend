@@ -1,12 +1,19 @@
+
 <template>
   <div>
+    <div>
+      <v-divider></v-divider>
+      <p class="font-weight-bold">DEMOGRAPHY</p>
+      <v-divider></v-divider>
+      <div class="float-xl-left"></div><br>
+    </div>
     <div class="selector">
       <v-chip
         v-for="(value, label) in categories"
         :key="label"
         @click="onDemographicsSelectorClick(label)"
-        color="purple"
-        text-color="white"
+        :color="selectedDemographic === label ? 'purple lighten-5' : ''"
+        :text-color="selectedDemographic === label ? 'purple darken-3' : ''"
         >
         {{label}}
       </v-chip>
@@ -47,6 +54,15 @@
         </div>
       </template> -->
     </div>
+    <div>
+       <div class="float-xl-left"></div><br>
+    </div>
+    <div>
+      <v-divider></v-divider>
+      <p class="font-weight-bold">DESCRIPTIVE STATISTICS</p>
+      <v-divider></v-divider>
+      <div class="float-xl-left"></div><br>
+    </div>
   </div>
 </template>
 
@@ -65,11 +81,13 @@ export default {
   },
   data: function () {
     return {
+      selectedDemographic: ''
     }
   },
   methods: {
     onDemographicsSelectorClick: function (label) {
       console.log('aaaa')
+      this.selectedDemographic = label
       this.$store.commit('setDemographicsSelector', label)
     }
   }
