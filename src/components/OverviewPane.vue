@@ -4,7 +4,10 @@
       <v-chip
         v-for="(value, label) in statistics"
         :key="label"
-        @click="onDemographicsSelectorClick(label)">
+        @click="onDemographicsSelectorClick(label)"
+        color="purple"
+        text-color="white"
+        >
         {{label}}
       </v-chip>
     </div>
