@@ -18,13 +18,24 @@
         {{label}}
       </v-chip>
     </div>
+    <div>
+      <div class="float-xl-left"></div><br>
+    </div>
+    <div>
+      <v-divider></v-divider>
+      <p class="font-weight-bold">DESCRIPTIVE STATISTICS</p>
+      <v-divider></v-divider>
+      <div class="float-xl-left"></div><br>
+    </div>
     <div class="chart">
-      <v-simple-table>
+      <v-simple-table
+        dense
+        fixed-header>
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left">Category</th>
-              <th class="text-left">Number of workers</th>
+              <th class="text-left"># of workers</th>
               <th class="text-left">Min. Distance</th>
               <th class="text-left">Max. Distance</th>
               <th class="text-left">Avg. Distance</th>
@@ -43,30 +54,11 @@
       </v-simple-table>
       <div>
         <distance-comparison-chart
-          :data="chartData">
+          :data="chartData"
+          :height="5*remSize*numLabels"
+          >
         </distance-comparison-chart>
       </div>
-      <!-- <template v-for="(value, label) in statistics">
-        <div :key="label">
-          {{label}}
-          <v-range-slider
-            max="4" min="0"
-            :value="[value.min, value.max]"
-            thumb-label="always"
-            thumb-size="15"
-            readonly>
-          </v-range-slider>
-        </div>
-      </template> -->
-    </div>
-    <div>
-       <div class="float-xl-left"></div><br>
-    </div>
-    <div>
-      <v-divider></v-divider>
-      <p class="font-weight-bold">DESCRIPTIVE STATISTICS</p>
-      <v-divider></v-divider>
-      <div class="float-xl-left"></div><br>
     </div>
   </div>
 </template>
@@ -91,38 +83,70 @@ export default {
       const min = []
       const max = []
       const between = []
+      const average = []
+      const zeros = []
       const labels = Object.keys(this.statistics)
-      console.log('a')
+
       labels.forEach((label) => {
         min.push(this.statistics[label].min)
         between.push(this.statistics[label].max - this.statistics[label].min)
         max.push(4 - this.statistics[label].max)
+        average.push(this.statistics[label].avg)
+        zeros.push(0.03)
       })
-      console.log(min)
-      console.log(between)
-      console.log(max)
 
-      console.log('b')
       return {
         labels: labels,
         datasets: [
           {
             label: 'min',
             backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: min
+            data: min,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis0',
+            yAxisID: 'bar-y-axis0'
           },
           {
             label: 'between',
             backgroundColor: '#f87979',
-            data: between
+            data: between,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis0',
+            yAxisID: 'bar-y-axis0'
           },
           {
             label: 'max',
             backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: max
+            data: max,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis0',
+            yAxisID: 'bar-y-axis0'
+          },
+          {
+            label: 'avg',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: average,
+            // stack: 'Stack 1',
+            xAxisID: 'bar-x-axis1',
+            yAxisID: 'bar-y-axis1'
+          },
+          {
+            label: 'zeros',
+            backgroundColor: '#000000',
+            data: zeros,
+            // stack: 'Stack 1',
+            xAxisID: 'bar-x-axis1',
+            yAxisID: 'bar-y-axis1'
           }
         ]
       }
+    },
+    remSize: function () {
+      return parseFloat(getComputedStyle(document.documentElement).fontSize)
+    },
+    numLabels: function () { // number of categories in each attribute, like for location, it might be 50
+      const labels = Object.keys(this.statistics)
+      return labels.length
     }
   },
   data: function () {
