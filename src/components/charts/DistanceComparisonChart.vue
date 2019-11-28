@@ -14,6 +14,20 @@ export default {
         legend: {
           display: false
         },
+        tooltips: {
+          filter: (category, data) => {
+            const label = data.datasets[category.datasetIndex].label
+            return (label === 'min' || label === 'max' || label === 'avg')
+          },
+          callbacks: {
+            label: function (tooltipItem, data) {
+              const label = data.datasets[tooltipItem.datasetIndex].label || ''
+
+              const labelNumber = data.datasets[tooltipItem.datasetIndex].labels[tooltipItem.index]
+              return `${label}: ${labelNumber}`
+            }
+          }
+        },
         scales: {
           xAxes: [{
             id: 'bar-x-axis0',

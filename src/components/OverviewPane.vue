@@ -81,6 +81,7 @@ export default {
     }),
     chartData: function () {
       const min = []
+      const maxLabels = []
       const max = []
       const between = []
       const average = []
@@ -90,6 +91,7 @@ export default {
       labels.forEach((label) => {
         min.push(this.statistics[label].min)
         between.push(this.statistics[label].max - this.statistics[label].min)
+        maxLabels.push(this.statistics[label].max)
         max.push(4 - this.statistics[label].max)
         average.push(this.statistics[label].avg)
         zeros.push(0.03)
@@ -102,20 +104,22 @@ export default {
             label: 'min',
             backgroundColor: 'rgba(255, 99, 132, 0)',
             data: min,
-            // stack: 'Stack 0',
-            xAxisID: 'bar-x-axis0',
-            yAxisID: 'bar-y-axis0'
-          },
-          {
-            label: 'between',
-            backgroundColor: '#f87979',
-            data: between,
+            labels: min,
             // stack: 'Stack 0',
             xAxisID: 'bar-x-axis0',
             yAxisID: 'bar-y-axis0'
           },
           {
             label: 'max',
+            backgroundColor: '#f87979',
+            data: between,
+            labels: maxLabels,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis0',
+            yAxisID: 'bar-y-axis0'
+          },
+          {
+            label: 'remain',
             backgroundColor: 'rgba(255, 99, 132, 0)',
             data: max,
             // stack: 'Stack 0',
@@ -126,6 +130,7 @@ export default {
             label: 'avg',
             backgroundColor: 'rgba(255, 99, 132, 0)',
             data: average,
+            labels: average,
             // stack: 'Stack 1',
             xAxisID: 'bar-x-axis1',
             yAxisID: 'bar-y-axis1'
