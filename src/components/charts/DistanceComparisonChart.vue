@@ -4,13 +4,12 @@ const { reactiveProp } = mixins
 export default {
   name: 'DistanceComparisonChart',
   extends: HorizontalBar,
-  props: {
-    data: Object
-  },
   mixins: [reactiveProp],
   computed: {
     options: function () {
       return {
+        responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: false
         },
@@ -68,7 +67,7 @@ export default {
     }
   },
   mounted: function () {
-    this.renderChart(this.data, this.options)
+    this.renderChart(this.chartData, this.options)
   }
 }
 </script>

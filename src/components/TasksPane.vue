@@ -7,7 +7,10 @@
       <div class="float-xl-left"></div><br>
     </div>
     <div class="selector">
-      <v-chip v-for="(value, label) in demographics" :key="label">
+      <v-chip v-for="(value, label) in demographics" :key="label"
+        @click="onDemographicsSelectorClick(label)"
+        :color="selectedDemographic === label ? 'purple lighten-5' : ''"
+        :text-color="selectedDemographic === label ? 'purple darken-3' : ''">
         {{label}}
       </v-chip>
     </div>
@@ -28,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import TaskDetailPane from '@/components/TaskDetailPane.vue'
 export default {
   name: 'TasksPane',
@@ -37,20 +40,23 @@ export default {
   },
   computed: {
     ...mapState({
-      images: 'images'
-    }),
-    ...mapGetters({
+      images: 'images',
       demographics: 'demographics'
     })
   },
   methods: {
     onSelectImage: function (image) {
       this.selectedImage = image
+    },
+    onDemographicsSelectorClick: function (label) {
+      this.selectedDemographic = label
+      this.$store.dispatch('fetchImages')
     }
   },
   data: function () {
     return {
-      selectedImage: {}
+      selectedImage: {},
+      selectedDemographic: ''
     }
   }
 }

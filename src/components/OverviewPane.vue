@@ -7,16 +7,20 @@
       <v-divider></v-divider>
       <div class="float-xl-left"></div><br>
     </div>
-    <div class="selector">
+    <div class="selector"
+      v-if="categories">
       <v-chip
-        v-for="(value, label) in categories"
+        v-for="label in categories"
         :key="label"
-        @click="onDemographicsSelectorClick(label)"
+        @click="onCategoriesSelectorClick(label)"
         :color="selectedDemographic === label ? 'purple lighten-5' : ''"
         :text-color="selectedDemographic === label ? 'purple darken-3' : ''"
         >
         {{label}}
       </v-chip>
+    </div>
+    <div v-else>
+      <v-progress-circular indeterminate></v-progress-circular>
     </div>
     <div>
       <div class="float-xl-left"></div><br>
@@ -27,7 +31,7 @@
       <v-divider></v-divider>
       <div class="float-xl-left"></div><br>
     </div>
-    <div class="chart">
+    <div class="chart" v-if="demographics">
       <v-simple-table
         dense
         fixed-header>
@@ -42,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(value, label) in statistics" :key="label">
+            <tr v-for="(value, label) in demographics" :key="label">
               <td>{{ label }}</td>
               <td>{{ value.count }}</td>
               <td>{{ value.min }}</td>
@@ -52,19 +56,22 @@
           </tbody>
         </template>
       </v-simple-table>
-      <div>
+      <div class="chartContainer">
         <distance-comparison-chart
-          :data="chartData"
-          :height="5*remSize*numLabels"
+          :chart-data="chartData"
+          :styles="myStyles"
           >
         </distance-comparison-chart>
       </div>
+    </div>
+    <div v-else-if="!demographics && demographicsLoading">
+      <v-progress-circular indeterminate></v-progress-circular>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import DistanceComparisonChart from '@/components/charts/DistanceComparisonChart'
 export default {
   name: 'OverviewPane',
@@ -74,9 +81,6 @@ export default {
   computed: {
     ...mapState({
       categories: 'categories',
-      statistics: 'statistics'
-    }),
-    ...mapGetters({
       demographics: 'demographics'
     }),
     chartData: function () {
@@ -86,14 +90,14 @@ export default {
       const between = []
       const average = []
       const zeros = []
-      const labels = Object.keys(this.statistics)
+      const labels = Object.keys(this.demographics)
 
       labels.forEach((label) => {
-        min.push(this.statistics[label].min)
-        between.push(this.statistics[label].max - this.statistics[label].min)
-        maxLabels.push(this.statistics[label].max)
-        max.push(4 - this.statistics[label].max)
-        average.push(this.statistics[label].avg)
+        min.push(this.demographics[label].min)
+        between.push(this.demographics[label].max - this.demographics[label].min)
+        maxLabels.push(this.demographics[label].max)
+        max.push(4 - this.demographics[label].max)
+        average.push(this.demographics[label].avg)
         zeros.push(0.03)
       })
 
@@ -150,20 +154,29 @@ export default {
       return parseFloat(getComputedStyle(document.documentElement).fontSize)
     },
     numLabels: function () { // number of categories in each attribute, like for location, it might be 50
-      const labels = Object.keys(this.statistics)
+      const labels = Object.keys(this.demographics)
       return labels.length
+    },
+    myStyles: function () {
+      return {
+        height: `${3 * this.remSize * this.numLabels}px`,
+        position: 'relative',
+        width: '100%'
+      }
     }
   },
   data: function () {
     return {
-      selectedDemographic: ''
+      selectedDemographic: '',
+      demographicsLoading: false
     }
   },
   methods: {
-    onDemographicsSelectorClick: function (label) {
-      console.log('aaaa')
+    onCategoriesSelectorClick: async function (label) {
       this.selectedDemographic = label
-      this.$store.commit('setDemographicsSelector', label)
+      this.demographicsLoading = true
+      await this.$store.dispatch('fetchDemographics', label)
+      this.demographicsLoading = false
     }
   }
 }
