@@ -14,19 +14,32 @@
         {{label}}
       </v-chip>
     </div>
+    <!-- <v-row v-if="imageList">
+      <v-col md="2">
+        <v-btn v-for="image in imageList" :key="image.id" @click="onSelectImage(image)">
+          {{image.id}}: {{Math.round(image.distance * 100)}}
+        </v-btn>
+      </v-col>
+      <v-col md="10" v-if="selectedImage.id">
+        <task-detail-pane
+          :imageURL="selectedImage.uri || ''"
+          :imageID="selectedImage.id || ''"
+          :overallDistribution="selectedImage.overallDistribution"
+          :selectedDistribution="selectedImage.selectedDistribution"></task-detail-pane>
+      </v-col>
+    </v-row> -->
     <v-row>
       <v-col md="2">
-        <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image)">
-          {{image.id}}
+        <v-btn v-for="image in imageList" :key="image.id" @click="onSelectImage(image)">
+          {{image.id}}: {{Math.round(image.distance * 100)}}
         </v-btn>
       </v-col>
       <v-col md="10">
         <task-detail-pane
-          :imageURL="selectedImage.url || ''"
+          :imageURL="selectedImage.uri || ''"
           :imageID="selectedImage.id || ''"></task-detail-pane>
       </v-col>
     </v-row>
-
   </div>
 </template>
 
@@ -40,22 +53,24 @@ export default {
   },
   computed: {
     ...mapState({
-      images: 'images',
-      demographics: 'demographics'
+      imageList: 'imageList',
+      demographics: 'demographics',
+      selectedImage: 'selectedImage'
     })
   },
   methods: {
     onSelectImage: function (image) {
-      this.selectedImage = image
+      // this.selectedImage = image
+      this.$store.dispatch('fetchImage', { img: image.id, group: this.selectedDemographic })
     },
     onDemographicsSelectorClick: function (label) {
       this.selectedDemographic = label
-      this.$store.dispatch('fetchImages')
+      this.$store.dispatch('fetchImages', label)
     }
   },
   data: function () {
     return {
-      selectedImage: {},
+      // selectedImage: null,
       selectedDemographic: ''
     }
   }

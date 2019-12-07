@@ -23,7 +23,8 @@ export default {
               const label = data.datasets[tooltipItem.datasetIndex].label || ''
 
               const labelNumber = data.datasets[tooltipItem.datasetIndex].labels[tooltipItem.index]
-              return `${label}: ${labelNumber}`
+              const roundedLabelNumber = Math.round(labelNumber * 100) / 100
+              return `${label}: ${roundedLabelNumber}`
             }
           }
         },

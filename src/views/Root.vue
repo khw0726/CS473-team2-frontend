@@ -19,7 +19,6 @@ import TasksPane from '@/components/TasksPane.vue'
 export default {
   name: 'root',
   mounted: async function () {
-    console.log('aaaa')
     await this.$store.dispatch('fetchCategories')
   },
   components: {

@@ -3,14 +3,14 @@
   <div>
     <div>
       <v-divider></v-divider>
-      <p class="font-weight-bold">DEMOGRAPHY</p>
+      <p class="font-weight-bold">DEMOGRAPHIC CATEGORIES</p>
       <v-divider></v-divider>
       <div class="float-xl-left"></div><br>
     </div>
     <div class="selector"
       v-if="categories">
       <v-chip
-        v-for="label in categories"
+        v-for="label in Object.keys(categories)"
         :key="label"
         @click="onCategoriesSelectorClick(label)"
         :color="selectedDemographic === label ? 'purple lighten-5' : ''"
@@ -49,9 +49,9 @@
             <tr v-for="(value, label) in demographics" :key="label">
               <td>{{ label }}</td>
               <td>{{ value.count }}</td>
-              <td>{{ value.min }}</td>
-              <td>{{ value.max }}</td>
-              <td>{{ value.avg }}</td>
+              <td>{{ Math.round(value.min * 100) / 100 }}</td>
+              <td>{{ Math.round(value.max * 100) / 100 }}</td>
+              <td>{{ Math.round(value.avg * 100) / 100  }}</td>
             </tr>
           </tbody>
         </template>
@@ -66,6 +66,9 @@
     </div>
     <div v-else-if="!demographics && demographicsLoading">
       <v-progress-circular indeterminate></v-progress-circular>
+    </div>
+    <div v-else>
+      Please choose a demographic category of interest first!
     </div>
   </div>
 </template>
@@ -159,7 +162,7 @@ export default {
     },
     myStyles: function () {
       return {
-        height: `${3 * this.remSize * this.numLabels}px`,
+        height: `${2.5 * this.remSize * this.numLabels}px`,
         position: 'relative',
         width: '100%'
       }
