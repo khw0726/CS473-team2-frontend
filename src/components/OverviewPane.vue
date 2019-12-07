@@ -2,7 +2,6 @@
 <template>
   <div>
     <div>
-      <v-divider></v-divider>
       <p class="font-weight-bold">DEMOGRAPHIC CATEGORIES</p>
       <v-divider></v-divider>
       <div class="float-xl-left"></div><br>
@@ -26,7 +25,7 @@
       <div class="float-xl-left"></div><br>
     </div>
     <div>
-      <v-divider></v-divider>
+      <div class="float-xl-left"></div><br>
       <p class="font-weight-bold">DESCRIPTIVE STATISTICS</p>
       <v-divider></v-divider>
       <div class="float-xl-left"></div><br>
@@ -186,5 +185,7 @@ export default {
 </script>
 
 <style scoped>
-
+  p{margin-left:5px}
+  .v-chip {margin-right: 5px;}
+  .v-chip {margin-bottom : 8px;}
 </style>
