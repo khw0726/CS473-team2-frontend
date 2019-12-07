@@ -16,7 +16,7 @@
     </div>
     <v-row>
       <v-col md="2">
-        <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image)">
+        <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image.id)">
           {{image.id}}
         </v-btn>
       </v-col>
@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     ...mapState({
-      images: 'images',
+      images: 'imageList',
       demographics: 'demographics'
     })
   },
@@ -50,7 +50,7 @@ export default {
     },
     onDemographicsSelectorClick: function (label) {
       this.selectedDemographic = label
-      this.$store.dispatch('fetchImages')
+      this.$store.dispatch('fetchImages', label)
     }
   },
   data: function () {
