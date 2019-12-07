@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-      <v-divider></v-divider>
       <p class="font-weight-bold">RESULTS BY EACH TASK</p>
       <v-divider></v-divider>
       <div class="float-xl-left"></div><br>
@@ -65,5 +64,7 @@ export default {
 </script>
 
 <style scoped>
-
+  p{margin-left:5px}
+  .v-chip {margin-right: 5px;}
+  .v-btn {margin-bottom: 3px;}
 </style>
