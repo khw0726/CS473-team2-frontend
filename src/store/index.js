@@ -46,7 +46,7 @@ export default new Vuex.Store({
           })
         }
         imageList.sort((a, b) => {
-          return a.distance - b.distance
+          return b.distance - a.distance
         })
         state.imageList = imageList
       } else {

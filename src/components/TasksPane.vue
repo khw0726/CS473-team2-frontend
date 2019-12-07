@@ -17,13 +17,15 @@
     <v-row>
       <v-col md="2">
         <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image.id)">
-          {{image.id}}
+          {{image.id}}: {{Math.round(image.distance * 100) / 100 }}
         </v-btn>
       </v-col>
       <v-col md="10">
         <task-detail-pane
-          :imageURL="selectedImage.url || ''"
-          :imageID="selectedImage.id || ''"></task-detail-pane>
+          :imageURL="selectedImage.uri || ''"
+          :imageID="selectedImage.id || ''"
+          :selectedDistribution="selectedImage.selectedDistribution"
+          :overallDistribution="selectedImage.overallDistribution"></task-detail-pane>
       </v-col>
     </v-row>
 
@@ -41,12 +43,13 @@ export default {
   computed: {
     ...mapState({
       images: 'imageList',
+      selectedImage: 'selectedImage',
       demographics: 'demographics'
     })
   },
   methods: {
     onSelectImage: function (image) {
-      this.selectedImage = image
+      this.$store.dispatch('fetchImage', { img: image, group: this.selectedDemographic })
     },
     onDemographicsSelectorClick: function (label) {
       this.selectedDemographic = label
@@ -55,7 +58,6 @@ export default {
   },
   data: function () {
     return {
-      selectedImage: {},
       selectedDemographic: ''
     }
   }
