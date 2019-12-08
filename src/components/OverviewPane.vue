@@ -171,7 +171,7 @@ export default {
           },
           {
             label: '3Q',
-            backgroundColor: '#f87979',
+            backgroundColor: '#E1BEE7',
             data: between,
             labels: thirdQLabels,
             // stack: 'Stack 0',
