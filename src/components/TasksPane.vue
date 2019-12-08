@@ -25,7 +25,7 @@
       </v-col>
       <v-col md="10">
         <div class="float-xl-left"></div><br>
-        <p class="font-weight-medium">{{selectedDemographic}}/{{selectedImage.id}} </p>
+        <p class="font-weight-medium">{{selectedDemographic}}/{{selectedImage.id ? selectedImage.id : 'not selected'}} </p>
         <task-detail-pane
           :imageURL="selectedImage.uri || ''"
           :imageID="selectedImage.id || ''"
