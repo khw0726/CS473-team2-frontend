@@ -14,7 +14,7 @@
       </v-chip>
     </div>
     <v-row>
-      <v-col md="2">
+      <v-col md="2" class="buttons">
         <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image.id)">
           {{image.id}}: {{Math.round(image.distance * 100) / 100 }}
         </v-btn>
@@ -67,4 +67,13 @@ export default {
   p{margin-left:5px}
   .v-chip {margin-right: 5px;}
   .v-btn {margin-bottom: 3px;}
+
+  .buttons {
+    max-height: 73vh;
+    overflow: scroll;
+    scrollbar-width: none;
+  }
+  .buttons::-webkit-scrollbar {
+    display: none;
+  }
 </style>

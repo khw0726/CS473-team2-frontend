@@ -86,40 +86,94 @@ export default {
       demographics: 'demographics'
     }),
     chartData: function () {
-      const min = []
-      const maxLabels = []
-      const max = []
+      // const min = []
+      // const maxLabels = []
+      // const max = []
       const between = []
-      const average = []
+      // const average = []
       const zeros = []
+      const med = []
+      const firstQ = []
+      const thirdQ = []
+      const thirdQLabels = []
       const labels = Object.keys(this.demographics)
 
       labels.forEach((label) => {
-        min.push(this.demographics[label].min)
-        between.push(this.demographics[label].max - this.demographics[label].min)
-        maxLabels.push(this.demographics[label].max)
-        max.push(4 - this.demographics[label].max)
-        average.push(this.demographics[label].avg)
+        firstQ.push(this.demographics[label]['1q'])
+        between.push(this.demographics[label]['3q'] - this.demographics[label]['1q'])
+        thirdQ.push(4 - this.demographics[label]['3q'])
+        thirdQLabels.push(this.demographics[label]['3q'])
+        med.push(this.demographics[label].med)
         zeros.push(0.03)
+
+        // between.push(this.demographics[label].max - this.demographics[label].min)
+        // maxLabels.push(this.demographics[label].max)
+        // min.push(this.demographics[label].min)
+        // max.push(4 - this.demographics[label].max)
+        // average.push(this.demographics[label].avg)
+        // zeros.push(0.03)
       })
 
       return {
         labels: labels,
         datasets: [
+          // {
+          //   label: 'min',
+          //   backgroundColor: 'rgba(255, 99, 132, 0)',
+          //   data: min,
+          //   labels: min,
+          //   // stack: 'Stack 0',
+          //   xAxisID: 'bar-x-axis0',
+          //   yAxisID: 'bar-y-axis0'
+          // },
+          // {
+          //   label: 'max',
+          //   backgroundColor: '#f87979',
+          //   data: between,
+          //   labels: maxLabels,
+          //   // stack: 'Stack 0',
+          //   xAxisID: 'bar-x-axis0',
+          //   yAxisID: 'bar-y-axis0'
+          // },
+          // {
+          //   label: 'remain',
+          //   backgroundColor: 'rgba(255, 99, 132, 0)',
+          //   data: max,
+          //   // stack: 'Stack 0',
+          //   xAxisID: 'bar-x-axis0',
+          //   yAxisID: 'bar-y-axis0'
+          // },
+          // {
+          //   label: 'avg',
+          //   backgroundColor: 'rgba(255, 99, 132, 0)',
+          //   data: average,
+          //   labels: average,
+          //   // stack: 'Stack 1',
+          //   xAxisID: 'bar-x-axis1',
+          //   yAxisID: 'bar-y-axis1'
+          // },
+          // {
+          //   label: 'zeros',
+          //   backgroundColor: '#000000',
+          //   data: zeros,
+          //   // stack: 'Stack 1',
+          //   xAxisID: 'bar-x-axis1',
+          //   yAxisID: 'bar-y-axis1'
+          // },
           {
-            label: 'min',
+            label: '1Q',
             backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: min,
-            labels: min,
+            data: firstQ,
+            labels: firstQ,
             // stack: 'Stack 0',
             xAxisID: 'bar-x-axis0',
             yAxisID: 'bar-y-axis0'
           },
           {
-            label: 'max',
+            label: '3Q',
             backgroundColor: '#f87979',
             data: between,
-            labels: maxLabels,
+            labels: thirdQLabels,
             // stack: 'Stack 0',
             xAxisID: 'bar-x-axis0',
             yAxisID: 'bar-y-axis0'
@@ -127,16 +181,16 @@ export default {
           {
             label: 'remain',
             backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: max,
+            data: thirdQ,
             // stack: 'Stack 0',
             xAxisID: 'bar-x-axis0',
             yAxisID: 'bar-y-axis0'
           },
           {
-            label: 'avg',
+            label: 'median',
             backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: average,
-            labels: average,
+            data: med,
+            labels: med,
             // stack: 'Stack 1',
             xAxisID: 'bar-x-axis1',
             yAxisID: 'bar-y-axis1'

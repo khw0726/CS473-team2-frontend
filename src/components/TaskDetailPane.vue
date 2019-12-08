@@ -26,9 +26,13 @@
         </v-col>
         <v-expand-transition>
           <annotators-detail-pane
-            v-if="showAnnotatorsDetail"
-            :annotators="annotators">
+            v-if="showAnnotatorsDetail && annotators"
+            :annotators="annotators"
+            :value="selectedValue">
           </annotators-detail-pane>
+          <v-progress-circular indeterminate
+            v-else-if="showAnnotatorsDetail">
+          </v-progress-circular>
         </v-expand-transition>
       </v-row>
     </v-container>
@@ -86,19 +90,28 @@ export default {
       }
     }
   },
+  watch: {
+    imageID: function () {
+      this.annotators = []
+      this.showAnnotatorsDetail = false
+    }
+  },
   methods: {
     onDataPointClick: async function (value) {
-      console.log('aaaa')
       this.showAnnotatorsDetail = true
       // console.log(this.axios)
-      const res = await this.axios.get(`${this.API_URL}/${this.imageID}/${value}/`)
-      this.annotators = res.data
+      if (this.annotators.length === 0) {
+        const res = await this.axios.get(`${this.API_URL}/img/${this.imageID}/`)
+        this.annotators = res.data.workers
+      }
+      this.selectedValue = value
     }
   },
   data: function () {
     return {
       showAnnotatorsDetail: false,
-      annotators: {}
+      annotators: [],
+      selectedValue: null
     }
   }
 }
