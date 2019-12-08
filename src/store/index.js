@@ -24,7 +24,8 @@ export default new Vuex.Store({
       url: '',
       overallDistribution: [],
       selectedDistribution: []
-    }
+    },
+    API_URL: API_URL
   },
   getters: {
   },

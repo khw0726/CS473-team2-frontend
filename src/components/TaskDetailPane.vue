@@ -26,7 +26,8 @@
         </v-col>
         <v-expand-transition>
           <annotators-detail-pane
-            v-if="showAnnotatorsDetail">
+            v-if="showAnnotatorsDetail"
+            :annotators="annotators">
           </annotators-detail-pane>
         </v-expand-transition>
       </v-row>
@@ -35,6 +36,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DistributionComparisonChart from '@/components/charts/DistributionComparisonChart.vue'
 import AnnotatorsDetailPane from '@/components/AnnotatorsDetailPane.vue'
 export default {
@@ -63,13 +65,16 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      API_URL: 'API_URL'
+    }),
     chartData: function () {
       return {
         labels: [1, 2, 3, 4, 5],
         datasets: [
           {
             label: 'Overall',
-            backgroundColor: 'f5c42d',
+            backgroundColor: '#f5c42d',
             data: this.overallDistribution
           },
           {
@@ -82,14 +87,18 @@ export default {
     }
   },
   methods: {
-    onDataPointClick: function (value) {
-      console.log(value)
+    onDataPointClick: async function (value) {
+      console.log('aaaa')
       this.showAnnotatorsDetail = true
+      // console.log(this.axios)
+      const res = await this.axios.get(`${this.API_URL}/${this.imageID}/${value}/`)
+      this.annotators = res.data
     }
   },
   data: function () {
     return {
-      showAnnotatorsDetail: false
+      showAnnotatorsDetail: false,
+      annotators: {}
     }
   }
 }
