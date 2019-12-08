@@ -117,7 +117,7 @@ export default {
           },
           {
             label: 'max',
-            backgroundColor: '#f87979',
+            backgroundColor: '#E1BEE7',
             data: between,
             labels: maxLabels,
             // stack: 'Stack 0',

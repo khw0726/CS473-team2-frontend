@@ -74,12 +74,12 @@ export default {
         datasets: [
           {
             label: 'Overall',
-            backgroundColor: '#f5c42d',
+            backgroundColor: '#E1BEE7',
             data: this.overallDistribution
           },
           {
             label: 'Selected',
-            backgroundColor: '#f87979',
+            backgroundColor: '#8E24AA',
             data: this.selectedDistribution
           }
         ]

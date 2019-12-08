@@ -15,11 +15,14 @@
     </div>
     <v-row>
       <v-col md="2">
-        <v-btn v-for="image in images" :key="image.id" @click="onSelectImage(image.id)">
-          {{image.id}}: {{Math.round(image.distance * 100) / 100 }}
+        <v-btn v-for="image in images" :key="image.id"
+          @click="onSelectImage(image.id)">
+         {{image.id}}:{{Math.round(image.distance * 100) / 100 }}
         </v-btn>
       </v-col>
       <v-col md="10">
+        <div class="float-xl-left"></div><br>
+        <p class="font-weight-medium">DEMOGRAPHIC CATEGORIES</p>
         <task-detail-pane
           :imageURL="selectedImage.uri || ''"
           :imageID="selectedImage.id || ''"
@@ -67,4 +70,5 @@ export default {
   p{margin-left:5px}
   .v-chip {margin-right: 5px;}
   .v-btn {margin-bottom: 3px;}
+  .v-btn {font-size: x-small;}
 </style>
