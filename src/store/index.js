@@ -79,7 +79,7 @@ export default new Vuex.Store({
       commit('setSelectedImage', null)
     },
     fetchImages: async function ({ commit }, group) {
-      const res = await axios.get(`${API_URL}/img/${group}/`)
+      const res = await axios.get(`${API_URL}/groups/${group}/`)
       commit('setImageList', res.data)
       commit('setSelectedImage', null)
     },
