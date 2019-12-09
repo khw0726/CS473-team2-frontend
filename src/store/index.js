@@ -4,7 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const API_URL = 'http://cs489.hyunwoo.me:8000'
+const API_URL = 'https://cs489.hyunwoo.me:8443'
 
 // const sortObject = function (o) {
 //   const ordered = {}
