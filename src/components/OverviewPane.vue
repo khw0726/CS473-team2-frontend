@@ -89,22 +89,40 @@ export default {
       // const min = []
       // const maxLabels = []
       // const max = []
-      const between = []
       // const average = []
+      // const between = [] // till here for original horizontal plot
+
+      const iqrs = []
+      const between = []
       const zeros = []
       const med = []
       const firstQ = []
       const thirdQ = []
-      const thirdQLabels = []
+      const max = []
+      const min = []
+      const thirdQLabels = [] // till here for box plot
+
       const labels = Object.keys(this.demographics)
 
       labels.forEach((label) => {
+        const iqr = this.demographics[label]['3q'] - this.demographics[label]['1q']
         firstQ.push(this.demographics[label]['1q'])
-        between.push(this.demographics[label]['3q'] - this.demographics[label]['1q'])
+        iqrs.push(iqr)
         thirdQ.push(4 - this.demographics[label]['3q'])
-        thirdQLabels.push(this.demographics[label]['3q'])
-        med.push(this.demographics[label].med)
-        zeros.push(0.03)
+        thirdQLabels.push(this.demographics[label]['3q']) // till here for the box
+
+        const myMin = (this.demographics[label]['1q'] - (iqr * 1.5) > this.demographics[label]['min'])
+          ? this.demographics[label]['1q'] - (iqr * 1.5)
+          : this.demographics[label]['min']
+        const myMax = iqr * 1.5 + this.demographics[label]['3q'] < this.demographics[label]['max']
+          ? iqr * 1.5 + this.demographics[label]['3q']
+          : this.demographics[label]['max']
+        max.push(4 - myMax)
+        min.push(myMin)
+        between.push(myMax - myMin) // whiskers
+
+        med.push(this.demographics[label].med) // median bar
+        zeros.push(0.01)
 
         // between.push(this.demographics[label].max - this.demographics[label].min)
         // maxLabels.push(this.demographics[label].max)
@@ -161,48 +179,110 @@ export default {
           //   yAxisID: 'bar-y-axis1'
           // },
           {
-            label: '1Q',
-            backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: firstQ,
-            labels: firstQ,
-            // stack: 'Stack 0',
-            xAxisID: 'bar-x-axis0',
-            yAxisID: 'bar-y-axis0'
-          },
-          {
-            label: '3Q',
-            backgroundColor: '#E1BEE7',
-            data: between,
-            labels: thirdQLabels,
-            // stack: 'Stack 0',
-            xAxisID: 'bar-x-axis0',
-            yAxisID: 'bar-y-axis0'
-          },
-          {
-            label: 'remain',
-            backgroundColor: 'rgba(255, 99, 132, 0)',
-            data: thirdQ,
-            // stack: 'Stack 0',
-            xAxisID: 'bar-x-axis0',
-            yAxisID: 'bar-y-axis0'
-          },
-          {
             label: 'median',
             backgroundColor: 'rgba(255, 99, 132, 0)',
             data: med,
             labels: med,
+            categoryPercentage: 0.8,
+            barPercentage: 0.8,
             // stack: 'Stack 1',
-            xAxisID: 'bar-x-axis1',
-            yAxisID: 'bar-y-axis1'
+            xAxisID: 'bar-x-axis0',
+            yAxisID: 'bar-y-axis0'
           },
           {
             label: 'zeros',
             backgroundColor: '#000000',
             data: zeros,
+            categoryPercentage: 0.8,
+            barPercentage: 0.8,
             // stack: 'Stack 1',
+            xAxisID: 'bar-x-axis0',
+            yAxisID: 'bar-y-axis0'
+          }, // till here for median
+          {
+            label: '1Q',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: firstQ,
+            labels: firstQ,
+            categoryPercentage: 0.8,
+            barPercentage: 0.8,
+            // stack: 'Stack 0',
             xAxisID: 'bar-x-axis1',
             yAxisID: 'bar-y-axis1'
-          }
+          },
+          {
+            label: '3Q',
+            backgroundColor: 'rgba(225, 190, 231, 1)',
+            data: iqrs,
+            labels: thirdQLabels,
+            categoryPercentage: 0.8,
+            barPercentage: 0.8,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis1',
+            yAxisID: 'bar-y-axis1'
+          },
+          {
+            label: 'remain',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: thirdQ,
+            categoryPercentage: 0.8,
+            barPercentage: 0.8,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis1',
+            yAxisID: 'bar-y-axis1'
+          }, // till here for bars
+          {
+            label: 'min',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: min,
+            labels: min,
+            categoryPercentage: 0.8,
+            barPercentage: 0.2,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis2',
+            yAxisID: 'bar-y-axis2'
+          },
+          {
+            label: 'zeros2',
+            backgroundColor: '#000000',
+            data: zeros,
+            categoryPercentage: 0.8,
+            barPercentage: 0.6,
+            // stack: 'Stack 1',
+            xAxisID: 'bar-x-axis2',
+            yAxisID: 'bar-y-axis2'
+          }, // till here for median
+          {
+            label: 'max',
+            backgroundColor: '#000000',
+            data: between,
+            labels: max,
+            categoryPercentage: 0.8,
+            barPercentage: 0.2,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis2',
+            yAxisID: 'bar-y-axis2'
+          },
+          {
+            label: 'zeros3',
+            backgroundColor: '#000000',
+            data: zeros,
+            categoryPercentage: 0.8,
+            barPercentage: 0.6,
+            // stack: 'Stack 1',
+            xAxisID: 'bar-x-axis2',
+            yAxisID: 'bar-y-axis2'
+          }, // till here for median
+          {
+            label: 'remain2',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            data: max,
+            categoryPercentage: 0.8,
+            barPercentage: 0.2,
+            // stack: 'Stack 0',
+            xAxisID: 'bar-x-axis2',
+            yAxisID: 'bar-y-axis2'
+          } // till here for whiskers
         ]
       }
     },
