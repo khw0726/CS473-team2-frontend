@@ -6,8 +6,33 @@
       dark
       >
       <div class="d-flex align-center">
-        CS489
+        Bias Explorer
       </div>
+      <v-spacer>
+      </v-spacer>
+      <v-dialog
+        v-model="dialog"
+        width="50%">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>mdi-help</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            Distance measure
+          </v-card-title>
+          <v-card-text>
+            For each image, the difference between the distribution of the annotations from everyone and those from the selected population is computed with the earth mover's distance.
+            For detailed information, please refer to the <a target="_blank" href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">Wikipedia article</a> on earth mover's distance.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer>
+            </v-spacer>
+            <v-btn text @click="dialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
 
     <v-content>
@@ -22,6 +47,7 @@ export default {
 
   data: () => ({
     //
+    dialog: false
   })
 }
 </script>

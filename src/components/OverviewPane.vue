@@ -31,6 +31,13 @@
       <div class="float-xl-left"></div><br>
     </div>
     <div class="chart" v-if="demographics">
+      <div class="chartContainer">
+        <distance-comparison-chart
+          :chart-data="chartData"
+          :styles="myStyles"
+          >
+        </distance-comparison-chart>
+      </div>
       <v-simple-table
         dense
         fixed-header>
@@ -55,13 +62,6 @@
           </tbody>
         </template>
       </v-simple-table>
-      <div class="chartContainer">
-        <distance-comparison-chart
-          :chart-data="chartData"
-          :styles="myStyles"
-          >
-        </distance-comparison-chart>
-      </div>
     </div>
     <div v-else-if="!demographics && demographicsLoading">
       <v-progress-circular indeterminate></v-progress-circular>
@@ -99,6 +99,7 @@ export default {
       const firstQ = []
       const thirdQ = []
       const max = []
+      const maxLabels = []
       const min = []
       const thirdQLabels = [] // till here for box plot
 
@@ -118,6 +119,7 @@ export default {
           ? iqr * 1.5 + this.demographics[label]['3q']
           : this.demographics[label]['max']
         max.push(4 - myMax)
+        maxLabels.push(myMax)
         min.push(myMin)
         between.push(myMax - myMin) // whiskers
 
@@ -256,7 +258,7 @@ export default {
             label: 'max',
             backgroundColor: '#000000',
             data: between,
-            labels: max,
+            labels: maxLabels,
             categoryPercentage: 0.8,
             barPercentage: 0.2,
             // stack: 'Stack 0',
