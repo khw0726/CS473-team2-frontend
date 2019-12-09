@@ -19,6 +19,25 @@ export default {
   data: function () {
     return {
       options: {
+        scales: {
+          yAxes: [{
+            id: 'bar-y-axis0',
+            scaleLabel: {
+              display: true,
+              labelString: 'Overall'
+            }
+          }
+          // {
+          //   id: 'bar-y-axis1',
+          //   type: 'linear',
+          //   position: 'right',
+          //   scaleLabel: {
+          //     display: true,
+          //     labelString: 'Selected group'
+          //   }
+          // }
+          ]
+        },
         onClick: (e) => {
           // console.log(this)
           this.onClickHandler(e)

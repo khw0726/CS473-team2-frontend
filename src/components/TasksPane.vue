@@ -23,7 +23,7 @@
          {{image.id}}:<span class="font-weight-black">{{Math.round(image.distance * 100) / 100 }}</span>
         </v-btn>
       </v-col>
-      <v-col md="10">
+      <v-col md="10" v-if="selectedImage.id">
         <div class="float-xl-left"></div><br>
         <p class="font-weight-medium">{{selectedDemographic}}/{{selectedImage.id ? selectedImage.id : 'not selected'}} </p>
         <task-detail-pane

@@ -79,12 +79,14 @@ export default {
           {
             label: 'Overall',
             backgroundColor: '#E1BEE7',
-            data: this.overallDistribution
+            data: this.overallDistribution,
+            yAxisID: 'bar-y-axis0'
           },
           {
             label: 'Selected',
             backgroundColor: '#8E24AA',
-            data: this.selectedDistribution
+            data: this.selectedDistribution,
+            yAxisID: 'bar-y-axis0'
           }
         ]
       }
