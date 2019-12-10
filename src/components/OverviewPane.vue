@@ -31,13 +31,6 @@
       <div class="float-xl-left"></div><br>
     </div>
     <div class="chart" v-if="demographics">
-      <div class="chartContainer">
-        <distance-comparison-chart
-          :chart-data="chartData"
-          :styles="myStyles"
-          >
-        </distance-comparison-chart>
-      </div>
       <v-simple-table
         dense
         fixed-header>
@@ -62,6 +55,13 @@
           </tbody>
         </template>
       </v-simple-table>
+      <div class="chartContainer">
+        <distance-comparison-chart
+          :chart-data="chartData"
+          :styles="myStyles"
+          >
+        </distance-comparison-chart>
+      </div>
     </div>
     <div v-else-if="!demographics && demographicsLoading">
       <v-progress-circular indeterminate></v-progress-circular>
