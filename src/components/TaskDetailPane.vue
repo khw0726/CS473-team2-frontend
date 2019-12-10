@@ -4,7 +4,7 @@
       <v-row align="center" justify="center">
         <v-col md="4">
           <v-img
-            :src="`http://${imageURL}`"
+            :src="`https://${imageURL}`"
             class="grey lighten-2"
             >
             <template v-slot:placeholder>
