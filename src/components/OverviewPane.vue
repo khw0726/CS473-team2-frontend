@@ -31,6 +31,7 @@
       <div class="float-xl-left"></div><br>
     </div>
     <div class="chart" v-if="demographics">
+      <!-- Wasserstein distances compared to the annotation results from all workers -->
       <v-simple-table
         dense
         fixed-header>

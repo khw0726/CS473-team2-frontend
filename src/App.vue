@@ -23,8 +23,8 @@
             Distance measure
           </v-card-title>
           <v-card-text>
-            For each image, the difference between the distribution of the annotations from everyone and those from the selected population is computed with the earth mover's distance.
-            For detailed information, please refer to the <a target="_blank" href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">Wikipedia article</a> on earth mover's distance.
+            For each image, the difference between the distribution of the annotations from everyone and those from the selected population is computed with the Wasserstein distance (also known as earth mover's distance).
+            For detailed information, please refer to the <a target="_blank" href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance">Wikipedia article</a> on the Wasserstein distance.
           </v-card-text>
           <v-card-actions>
             <v-spacer>
